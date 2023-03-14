@@ -1,8 +1,9 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, HttpStatus, Param, Post, UseGuards} from '@nestjs/common';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
-import {PasswordResetDto} from "./dto/password-reset.dto";
-import {PasswordNewDto} from "./dto/password-new.dto";
+import { PasswordResetDto } from './dto/password-reset.dto';
+import { PasswordNewDto } from './dto/password-new.dto';
+import {AuthGuard} from "@nestjs/passport";
 
 @Controller('auth')
 export class NextAuthController {
@@ -31,13 +32,16 @@ export class NextAuthController {
     // password new handler
   }
 
-  @Get(':service')
-  async service(@Param('service') service: string) {
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  @HttpCode(HttpStatus.ACCEPTED)
+  async google(@Param('service') service: string) {
     // login or register user via service. Example: Google, Twitter, Facebook etc.
   }
 
-  @Get(':service/callback')
-  async serviceCallback(@Param('service') service: string) {
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  async googleCallback(@Param('service') service: string) {
     // get user data via auth service. Example: Google, Twitter, Facebook etc.
   }
 }

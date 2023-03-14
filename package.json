@@ -22,9 +22,14 @@
   "homepage": "https://github.com/poradelatnogi/next-auth#readme",
   "dependencies": {
     "@nestjs/common": "^9.3.9",
+    "@nestjs/jwt": "^10.0.2",
+    "@nestjs/passport": "^9.0.3",
     "@types/node": "^18.15.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.1",
+    "passport-microsoft": "^1.0.0",
     "rimraf": "^4.4.0"
   },
   "devDependencies": {
