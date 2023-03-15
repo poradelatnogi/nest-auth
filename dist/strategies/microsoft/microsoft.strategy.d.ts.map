@@ -1,0 +1,1 @@
+{"version":3,"file":"microsoft.strategy.d.ts","sourceRoot":"","sources":["../../../src/strategies/microsoft/microsoft.strategy.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,wBAAwB,EAAE,MAAM,qBAAqB,CAAC;;AAE/D,qBACa,iBAAkB,SAAQ,sBAAuC;gBAChE,OAAO,EAAE,wBAAwB;IA2BvC,QAAQ,CACZ,WAAW,EAAE,MAAM,EACnB,YAAY,EAAE,MAAM,EACpB,OAAO,EAAE,GAAG,EACZ,IAAI,EAAE,GAAG,GACR,OAAO,CAAC,GAAG,CAAC;CAIhB"}

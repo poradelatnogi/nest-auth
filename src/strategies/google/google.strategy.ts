@@ -1,18 +1,16 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
-import { Inject, Injectable } from '@nestjs/common';
-import { NextAuthOptionsDto } from '../dto/next-auth-options.dto';
+import { Injectable } from '@nestjs/common';
+import { GoogleStrategyOptions } from './google.options';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor(
-    @Inject('NEXT_AUTH_OPTIONS')
-    { strategies }: NextAuthOptionsDto,
-  ) {
+  constructor(options: GoogleStrategyOptions) {
+    const { clientID, clientSecret, callbackURL } = options;
     super({
-      clientID: strategies.google?.clientID,
-      clientSecret: strategies.google?.clientSecret,
-      callbackURL: strategies.google?.callbackURL,
+      clientID,
+      clientSecret,
+      callbackURL: callbackURL || '/google/callback',
       scope: ['email', 'profile'],
     });
   }
