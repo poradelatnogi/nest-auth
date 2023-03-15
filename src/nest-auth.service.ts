@@ -8,7 +8,7 @@ export class NestAuthService {
     // check if user authenticated, return jwt payload
   }
 
-  async signUp(signUpDto: SignUpDto, ...[]: any[]) {
+  async signUp(signUpDto: SignUpDto, ...[]: any[]): Promise<any> {
     // check if user is not exists, create user, return jwt payload
   }
 
