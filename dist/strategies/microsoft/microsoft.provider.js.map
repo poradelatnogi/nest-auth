@@ -1,0 +1,1 @@
+{"version":3,"file":"microsoft.provider.js","sourceRoot":"","sources":["../../../src/strategies/microsoft/microsoft.provider.ts"],"names":[],"mappings":";;;AAEA,6DAAyD;AAEzD,MAAa,yBAAyB;IACpC,MAAM,CAAC,OAAO,CAAC,OAAiC;QAC9C,OAAO;YACL,OAAO,EAAE,sCAAiB;YAC1B,UAAU,EAAE,GAAG,EAAE,CAAC,IAAI,sCAAiB,CAAC,OAAO,CAAC;SACjD,CAAC;IACJ,CAAC;CACF;AAPD,8DAOC"}

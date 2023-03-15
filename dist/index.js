@@ -14,12 +14,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./dto/sign-in.dto"), exports);
-__exportStar(require("./dto/sign-up.dto"), exports);
-__exportStar(require("./dto/password-reset.dto"), exports);
-__exportStar(require("./dto/password-new.dto"), exports);
-__exportStar(require("./dto/strong-password.dto"), exports);
-__exportStar(require("./nest-auth.controller"), exports);
+__exportStar(require("./dto"), exports);
+__exportStar(require("./strategies"), exports);
 __exportStar(require("./nest-auth.service"), exports);
-__exportStar(require("./nest-auth.module"), exports);
+__exportStar(require("./nest-auth.controller"), exports);
 //# sourceMappingURL=index.js.map

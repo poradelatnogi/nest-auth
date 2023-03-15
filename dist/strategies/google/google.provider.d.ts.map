@@ -1,0 +1,1 @@
+{"version":3,"file":"google.provider.d.ts","sourceRoot":"","sources":["../../../src/strategies/google/google.provider.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,kBAAkB,CAAC;AACzD,OAAO,EAAE,QAAQ,EAAE,MAAM,gBAAgB,CAAC;AAG1C,qBAAa,sBAAsB;IACjC,MAAM,CAAC,OAAO,CAAC,OAAO,EAAE,qBAAqB,GAAG,QAAQ;CAMzD"}

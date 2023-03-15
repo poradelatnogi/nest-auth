@@ -15,10 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NestAuthController = void 0;
 const common_1 = require("@nestjs/common");
 const nest_auth_service_1 = require("./nest-auth.service");
-const sign_in_dto_1 = require("./dto/sign-in.dto");
-const sign_up_dto_1 = require("./dto/sign-up.dto");
-const password_reset_dto_1 = require("./dto/password-reset.dto");
-const password_new_dto_1 = require("./dto/password-new.dto");
+const dto_1 = require("./dto");
 const passport_1 = require("@nestjs/passport");
 let NestAuthController = class NestAuthController {
     constructor(nestAuthService) {
@@ -54,7 +51,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [sign_in_dto_1.SignInDto, Object]),
+    __metadata("design:paramtypes", [dto_1.SignInDto, Object]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "signIn", null);
 __decorate([
@@ -62,7 +59,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [sign_up_dto_1.SignUpDto, Object]),
+    __metadata("design:paramtypes", [dto_1.SignUpDto, Object]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "signUp", null);
 __decorate([
@@ -70,7 +67,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [password_reset_dto_1.PasswordResetDto]),
+    __metadata("design:paramtypes", [dto_1.PasswordResetDto]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "passwordReset", null);
 __decorate([
@@ -78,7 +75,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [password_new_dto_1.PasswordNewDto]),
+    __metadata("design:paramtypes", [dto_1.PasswordNewDto]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "passwordNew", null);
 __decorate([

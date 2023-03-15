@@ -10,10 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { NestAuthService } from './nest-auth.service';
-import { SignInDto } from './dto/sign-in.dto';
-import { SignUpDto } from './dto/sign-up.dto';
-import { PasswordResetDto } from './dto/password-reset.dto';
-import { PasswordNewDto } from './dto/password-new.dto';
+import { SignInDto, SignUpDto, PasswordResetDto, PasswordNewDto } from './dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 

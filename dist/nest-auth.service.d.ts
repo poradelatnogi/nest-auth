@@ -1,7 +1,4 @@
-import { SignInDto } from './dto/sign-in.dto';
-import { SignUpDto } from './dto/sign-up.dto';
-import { PasswordResetDto } from './dto/password-reset.dto';
-import { PasswordNewDto } from './dto/password-new.dto';
+import { SignInDto, SignUpDto, PasswordResetDto, PasswordNewDto } from './dto';
 export declare class NestAuthService {
     signIn(signInDto: SignInDto, ...[]: any[]): Promise<void>;
     signUp(signUpDto: SignUpDto, ...[]: any[]): Promise<void>;

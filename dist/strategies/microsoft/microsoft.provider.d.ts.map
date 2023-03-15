@@ -1,0 +1,1 @@
+{"version":3,"file":"microsoft.provider.d.ts","sourceRoot":"","sources":["../../../src/strategies/microsoft/microsoft.provider.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,wBAAwB,EAAE,MAAM,qBAAqB,CAAC;AAC/D,OAAO,EAAE,QAAQ,EAAE,MAAM,gBAAgB,CAAC;AAG1C,qBAAa,yBAAyB;IACpC,MAAM,CAAC,OAAO,CAAC,OAAO,EAAE,wBAAwB,GAAG,QAAQ;CAM5D"}

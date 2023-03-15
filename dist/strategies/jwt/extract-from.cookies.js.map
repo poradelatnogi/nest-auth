@@ -1,0 +1,1 @@
+{"version":3,"file":"extract-from.cookies.js","sourceRoot":"","sources":["../../../src/strategies/jwt/extract-from.cookies.ts"],"names":[],"mappings":";;;AAEA,MAAa,kBAAkB;IAC7B,MAAM,CAAC,OAAO,CAAC,GAAY;QACzB,IAAI,GAAG,CAAC,OAAO,IAAI,cAAc,IAAI,GAAG,CAAC,OAAO,EAAE;YAChD,OAAO,GAAG,CAAC,OAAO,CAAC,YAAY,CAAC;SACjC;QACD,OAAO,IAAI,CAAC;IACd,CAAC;CACF;AAPD,gDAOC"}

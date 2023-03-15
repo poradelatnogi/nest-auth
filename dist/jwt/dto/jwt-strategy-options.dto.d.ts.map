@@ -1,1 +1,0 @@
-{"version":3,"file":"jwt-strategy-options.dto.d.ts","sourceRoot":"","sources":["../../../src/jwt/dto/jwt-strategy-options.dto.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,SAAS,CAAC;AAElC,qBAAa,qBAAqB;IAChC,UAAU,CAAC,EAAE,CAAC,GAAG,EAAE,OAAO,KAAK,MAAM,GAAG,IAAI,CAAC;IAC7C,WAAW,EAAE,MAAM,CAAC;CACrB"}

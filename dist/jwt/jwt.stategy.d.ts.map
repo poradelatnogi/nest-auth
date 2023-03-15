@@ -1,1 +1,0 @@
-{"version":3,"file":"jwt.stategy.d.ts","sourceRoot":"","sources":["../../src/jwt/jwt.stategy.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,kBAAkB,EAAE,MAAM,8BAA8B,CAAC;;AAElE,qBACa,WAAY,SAAQ,gBAA0B;gBAGvD,EAAE,kBAAkB,EAAE,EAAE,kBAAkB;IAY5C,QAAQ,CAAC,OAAO,EAAE;QAAE,EAAE,EAAE,MAAM,CAAC;QAAC,KAAK,EAAE,MAAM,CAAA;KAAE;;;;CAMhD"}
