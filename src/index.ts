@@ -5,3 +5,4 @@ export * from './dto/password-new.dto';
 export * from './dto/strong-password.dto';
 export * from './nest-auth.controller';
 export * from './nest-auth.service';
+export * from './nest-auth.module';
