@@ -34,7 +34,7 @@ let NestAuthModule = NestAuthModule_1 = class NestAuthModule {
                 jwt_stategy_1.JwtStrategy,
                 ...strategies,
             ],
-            exports: [nest_auth_service_1.NestAuthService],
+            exports: [nest_auth_service_1.NestAuthService, jwt_stategy_1.JwtStrategy, ...strategies],
         };
     }
 };

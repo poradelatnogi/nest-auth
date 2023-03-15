@@ -29,7 +29,7 @@ export class NestAuthModule {
         JwtStrategy,
         ...strategies,
       ],
-      exports: [NestAuthService],
+      exports: [NestAuthService, JwtStrategy, ...strategies],
     };
   }
 }
