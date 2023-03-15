@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/poradelatnogi/next-auth.git"
+    "url": "git+https://github.com/poradelatnogi/nest-auth.git"
   },
   "author": "i.hrechan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/poradelatnogi/next-auth/issues"
+    "url": "https://github.com/poradelatnogi/nest-auth/issues"
   },
-  "homepage": "https://github.com/poradelatnogi/next-auth#readme",
+  "homepage": "https://github.com/poradelatnogi/nest-auth#readme",
   "dependencies": {
     "@nestjs/common": "^9.3.9",
     "@nestjs/jwt": "^10.0.2",
