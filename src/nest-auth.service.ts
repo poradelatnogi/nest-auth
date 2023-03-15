@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { SignInDto, SignUpDto, PasswordResetDto, PasswordNewDto } from './dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class NestAuthService {
-  async signIn(signInDto: SignInDto, ...[]: any[]) {
+  async signIn(signInDto: SignInDto, ...[]: any[]): Promise<any> {
     // check if user authenticated, return jwt payload
   }
 
@@ -21,5 +22,14 @@ export class NestAuthService {
 
   async strategyCallback(strategy: string, profile: any, ...[]: any[]) {
     // get user data via auth service. Example: Google, Twitter, Facebook etc.
+  }
+
+  static async encryptPassword(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
+  }
+
+  static async comparePassword(hashToCompare: string, expectedHash: string) {
+    return await bcrypt.compare(hashToCompare, expectedHash);
   }
 }
