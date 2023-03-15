@@ -6,7 +6,7 @@ import { PasswordNewDto } from './dto/password-new.dto';
 import { Request } from 'express';
 export declare class NestAuthController {
     private readonly nestAuthService;
-    protected constructor(nestAuthService: NestAuthService);
+    constructor(nestAuthService: NestAuthService);
     signIn(signInDto: SignInDto, ...[]: any[]): Promise<any>;
     signUp(signUpDto: SignUpDto, ...[]: any[]): Promise<any>;
     passwordReset(passwordResetDto: PasswordResetDto): Promise<any>;
