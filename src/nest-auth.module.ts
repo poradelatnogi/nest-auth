@@ -9,7 +9,11 @@ import { NestAuthService } from './nest-auth.service';
 @Module({})
 export class NestAuthModule {
   static register(options: NestAuthOptionsDto): DynamicModule {
-    const { jwtModuleOptions, microsoftStrategyOptions, googleStrategyOptions } = options;
+    const {
+      jwtModuleOptions,
+      microsoftStrategyOptions,
+      googleStrategyOptions,
+    } = options;
     const strategies = [];
     if (!googleStrategyOptions) strategies.push(GoogleStrategy);
     if (!microsoftStrategyOptions) strategies.push(MicrosoftStrategy);
