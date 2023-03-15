@@ -19,7 +19,7 @@ import { Request } from 'express';
 
 @Controller('auth')
 export class NestAuthController {
-  protected constructor(
+  constructor(
     @Inject(NestAuthService)
     private readonly nestAuthService: NestAuthService,
   ) {}
