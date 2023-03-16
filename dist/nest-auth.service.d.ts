@@ -1,6 +1,7 @@
 import { SignInDto, SignUpDto, PasswordResetDto, PasswordNewDto } from './dto';
 import { JwtService } from '@nestjs/jwt';
 import { MailerService } from '@nestjs-modules/mailer';
+import { ISendMailOptions } from '@nestjs-modules/mailer/dist/interfaces/send-mail-options.interface';
 export declare class NestAuthService {
     readonly jwtService: JwtService;
     readonly mailerService: MailerService;
@@ -14,12 +15,6 @@ export declare class NestAuthService {
     static comparePassword(hashToCompare: string, expectedHash: string): Promise<any>;
     generateResetPasswordToken(email: string, expiresIn?: string): string;
     verifyResetPasswordToken(email: string, token: string): Promise<boolean>;
-    sendResetPassword(options: {
-        to: string;
-        from?: string;
-        subject?: string;
-        template?: string;
-        context: Record<any, any>;
-    }): Promise<void>;
+    sendResetPassword(options: ISendMailOptions): Promise<void>;
 }
 //# sourceMappingURL=nest-auth.service.d.ts.map
