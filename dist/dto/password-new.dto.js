@@ -17,6 +17,6 @@ class PasswordNewDto extends strong_password_dto_1.StrongPasswordDto {
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], PasswordNewDto.prototype, "resetToken", void 0);
+], PasswordNewDto.prototype, "resetPasswordToken", void 0);
 exports.PasswordNewDto = PasswordNewDto;
 //# sourceMappingURL=password-new.dto.js.map

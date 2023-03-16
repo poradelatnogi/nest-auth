@@ -9,8 +9,8 @@ export declare class NestAuthController {
     passwordReset(passwordResetDto: PasswordResetDto): Promise<any>;
     passwordNew(passwordNewDto: PasswordNewDto): Promise<any>;
     google(): Promise<void>;
-    googleCallback(req: Request): Promise<void>;
+    googleCallback(req: Request): Promise<any>;
     microsoft(): Promise<void>;
-    microsoftCallback(req: Request): Promise<void>;
+    microsoftCallback(req: Request): Promise<any>;
 }
 //# sourceMappingURL=nest-auth.controller.d.ts.map
