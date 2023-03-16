@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from './dto';
 import { NestAuth } from './nest-auth.entity';
 import { JwtService } from '@nestjs/jwt';
+import { MailerService } from '@nestjs-modules/mailer';
 import crypto from 'crypto';
 
 export type GetUserWithTokenType = ReturnType<
@@ -16,10 +17,10 @@ export class NestAuthTypeOrmService extends NestAuthService {
   constructor(
     @InjectRepository(NestAuth)
     private readonly nestAuthRepository: Repository<NestAuth>,
-    @Inject(JwtService)
     jwtService: JwtService,
+    mailerService: MailerService,
   ) {
-    super(jwtService);
+    super(jwtService, mailerService);
   }
 
   async signIn(signInDto: SignInDto): Promise<GetUserWithTokenType> {
@@ -70,6 +71,12 @@ export class NestAuthTypeOrmService extends NestAuthService {
     user.password = await NestAuthTypeOrmService.encryptPassword(password);
     user.resetPasswordToken = null;
     await this.nestAuthRepository.save(user);
+    await this.sendResetPassword({
+      to: user.email,
+      context: {
+        user,
+      },
+    });
   }
 
   async strategyCallback(strategy: string, profile: any) {

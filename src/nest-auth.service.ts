@@ -1,14 +1,17 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SignInDto, SignUpDto, PasswordResetDto, PasswordNewDto } from './dto';
 import * as bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { JwtService } from '@nestjs/jwt';
+import { MailerService } from '@nestjs-modules/mailer';
+import { Address } from 'cluster';
+import { ISendMailOptions } from '@nestjs-modules/mailer/dist/interfaces/send-mail-options.interface';
 
 @Injectable()
 export class NestAuthService {
   constructor(
-    @Inject(JwtService)
     public readonly jwtService: JwtService,
+    public readonly mailerService: MailerService,
     ...[]: any[]
   ) {}
 
@@ -70,6 +73,16 @@ export class NestAuthService {
       return true;
     } catch (_) {
       return false;
+    }
+  }
+
+  async sendResetPassword(options: ISendMailOptions) {
+    try {
+      options.subject ||= 'Reset password token';
+      options.template ||= 'emails/reset-password';
+      await this.mailerService.sendMail({ ...options });
+    } catch (e) {
+      Logger.error(e);
     }
   }
 }

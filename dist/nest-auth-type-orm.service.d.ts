@@ -3,10 +3,11 @@ import { Repository } from 'typeorm';
 import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from './dto';
 import { NestAuth } from './nest-auth.entity';
 import { JwtService } from '@nestjs/jwt';
+import { MailerService } from '@nestjs-modules/mailer';
 export type GetUserWithTokenType = ReturnType<NestAuthTypeOrmService['getUserWithTokens']>;
 export declare class NestAuthTypeOrmService extends NestAuthService {
     private readonly nestAuthRepository;
-    constructor(nestAuthRepository: Repository<NestAuth>, jwtService: JwtService);
+    constructor(nestAuthRepository: Repository<NestAuth>, jwtService: JwtService, mailerService: MailerService);
     signIn(signInDto: SignInDto): Promise<GetUserWithTokenType>;
     signUp(signUpDto: SignUpDto): Promise<GetUserWithTokenType>;
     passwordReset({ email }: PasswordResetDto): Promise<void>;

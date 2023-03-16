@@ -31,9 +31,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -43,9 +40,11 @@ const common_1 = require("@nestjs/common");
 const bcrypt = __importStar(require("bcrypt"));
 const crypto_1 = __importDefault(require("crypto"));
 const jwt_1 = require("@nestjs/jwt");
+const mailer_1 = require("@nestjs-modules/mailer");
 let NestAuthService = class NestAuthService {
-    constructor(jwtService, ...[]) {
+    constructor(jwtService, mailerService, ...[]) {
         this.jwtService = jwtService;
+        this.mailerService = mailerService;
     }
     async signIn(signInDto, ...[]) {
         // check if user authenticated, return jwt payload
@@ -89,11 +88,21 @@ let NestAuthService = class NestAuthService {
             return false;
         }
     }
+    async sendResetPassword(options) {
+        try {
+            options.subject || (options.subject = 'Reset password token');
+            options.template || (options.template = 'emails/reset-password');
+            await this.mailerService.sendMail(Object.assign({}, options));
+        }
+        catch (e) {
+            common_1.Logger.error(e);
+        }
+    }
 };
 NestAuthService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, common_1.Inject)(jwt_1.JwtService)),
-    __metadata("design:paramtypes", [jwt_1.JwtService, Object])
+    __metadata("design:paramtypes", [jwt_1.JwtService,
+        mailer_1.MailerService, Object])
 ], NestAuthService);
 exports.NestAuthService = NestAuthService;
 //# sourceMappingURL=nest-auth.service.js.map

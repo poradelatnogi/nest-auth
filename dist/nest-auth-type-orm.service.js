@@ -23,10 +23,11 @@ const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
 const nest_auth_entity_1 = require("./nest-auth.entity");
 const jwt_1 = require("@nestjs/jwt");
+const mailer_1 = require("@nestjs-modules/mailer");
 const crypto_1 = __importDefault(require("crypto"));
 let NestAuthTypeOrmService = NestAuthTypeOrmService_1 = class NestAuthTypeOrmService extends nest_auth_service_1.NestAuthService {
-    constructor(nestAuthRepository, jwtService) {
-        super(jwtService);
+    constructor(nestAuthRepository, jwtService, mailerService) {
+        super(jwtService, mailerService);
         this.nestAuthRepository = nestAuthRepository;
     }
     async signIn(signInDto) {
@@ -64,6 +65,12 @@ let NestAuthTypeOrmService = NestAuthTypeOrmService_1 = class NestAuthTypeOrmSer
         user.password = await NestAuthTypeOrmService_1.encryptPassword(password);
         user.resetPasswordToken = null;
         await this.nestAuthRepository.save(user);
+        await this.sendResetPassword({
+            to: user.email,
+            context: {
+                user,
+            },
+        });
     }
     async strategyCallback(strategy, profile) {
         const signUpDto = await this.cleanProfilePayload(strategy, profile);
@@ -98,9 +105,9 @@ let NestAuthTypeOrmService = NestAuthTypeOrmService_1 = class NestAuthTypeOrmSer
 NestAuthTypeOrmService = NestAuthTypeOrmService_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_2.InjectRepository)(nest_auth_entity_1.NestAuth)),
-    __param(1, (0, common_1.Inject)(jwt_1.JwtService)),
     __metadata("design:paramtypes", [typeorm_1.Repository,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        mailer_1.MailerService])
 ], NestAuthTypeOrmService);
 exports.NestAuthTypeOrmService = NestAuthTypeOrmService;
 //# sourceMappingURL=nest-auth-type-orm.service.js.map
