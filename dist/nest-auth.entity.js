@@ -38,6 +38,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'enum', enum: user_role_enum_1.UserRoles, nullable: true }),
     __metadata("design:type", String)
 ], NestAuth.prototype, "roles", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'text', nullable: true }),
+    __metadata("design:type", String)
+], NestAuth.prototype, "resetPasswordToken", void 0);
 NestAuth = __decorate([
     (0, typeorm_1.Entity)({ name: 'user' })
 ], NestAuth);

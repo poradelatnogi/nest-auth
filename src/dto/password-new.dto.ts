@@ -3,5 +3,5 @@ import { IsString } from 'class-validator';
 
 export class PasswordNewDto extends StrongPasswordDto {
   @IsString()
-  resetToken: string;
+  resetPasswordToken: string;
 }

@@ -28,11 +28,25 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NestAuthService = void 0;
 const common_1 = require("@nestjs/common");
 const bcrypt = __importStar(require("bcrypt"));
+const crypto_1 = __importDefault(require("crypto"));
+const jwt_1 = require("@nestjs/jwt");
 let NestAuthService = class NestAuthService {
+    constructor(jwtService, ...[]) {
+        this.jwtService = jwtService;
+    }
     async signIn(signInDto, ...[]) {
         // check if user authenticated, return jwt payload
     }
@@ -40,10 +54,10 @@ let NestAuthService = class NestAuthService {
         // check if user is not exists, create user, return jwt payload
     }
     async passwordReset(passwordResetDto, ...[]) {
-        // check if user exists by email, generate resetToken, send reset password email to user
+        // check if user exists by email, generate and save resetToken, send reset password email to user
     }
     async passwordNew(passwordNewDto, ...[]) {
-        // check if resetToken valid, find user, set new password
+        // find user, check if resetToken valid, set new password
     }
     async strategyCallback(strategy, profile, ...[]) {
         // get user data via auth service. Example: Google, Twitter, Facebook etc.
@@ -55,9 +69,31 @@ let NestAuthService = class NestAuthService {
     static async comparePassword(hashToCompare, expectedHash) {
         return await bcrypt.compare(hashToCompare, expectedHash);
     }
+    generateResetPasswordToken(email, expiresIn = '1d') {
+        const secret = crypto_1.default.randomBytes(20).toString('hex');
+        const payload = {
+            email: email,
+            secret: secret,
+        };
+        return this.jwtService.sign(payload, { expiresIn, secret });
+    }
+    async verifyResetPasswordToken(email, token) {
+        try {
+            const decodedToken = this.jwtService.decode(token);
+            if (decodedToken.email !== email)
+                return false;
+            await this.jwtService.verify(token, decodedToken.secret);
+            return true;
+        }
+        catch (_) {
+            return false;
+        }
+    }
 };
 NestAuthService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __param(0, (0, common_1.Inject)(jwt_1.JwtService)),
+    __metadata("design:paramtypes", [jwt_1.JwtService, Object])
 ], NestAuthService);
 exports.NestAuthService = NestAuthService;
 //# sourceMappingURL=nest-auth.service.js.map

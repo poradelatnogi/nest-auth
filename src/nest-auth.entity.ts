@@ -10,7 +10,7 @@ export class NestAuth {
   firstName: string;
 
   @Column('text', { nullable: true })
-  lastName: string;
+  lastName: string | null;
 
   @Column('text', { nullable: false })
   email: string;
@@ -20,4 +20,7 @@ export class NestAuth {
 
   @Column({ type: 'enum', enum: UserRoles, nullable: true })
   roles: UserRoles;
+
+  @Column({ type: 'text', nullable: true })
+  resetPasswordToken?: string | null;
 }
