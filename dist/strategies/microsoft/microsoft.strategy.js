@@ -29,7 +29,8 @@ let MicrosoftStrategy = class MicrosoftStrategy extends (0, passport_1.PassportS
             };
         }
         super(Object.assign({ clientID,
-            clientSecret, callbackURL: callbackURL || '/google/callback', prompt: 'select_account', scope: ['user.read'] }, tenantOptions));
+            clientSecret,
+            callbackURL, prompt: 'select_account', scope: ['user.read'] }, tenantOptions));
     }
     async validate(accessToken, refreshToken, profile, done) {
         if (!profile)

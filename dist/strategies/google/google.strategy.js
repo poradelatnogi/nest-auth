@@ -19,7 +19,7 @@ let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrateg
         super({
             clientID,
             clientSecret,
-            callbackURL: callbackURL || '/google/callback',
+            callbackURL,
             scope: ['email', 'profile'],
         });
     }

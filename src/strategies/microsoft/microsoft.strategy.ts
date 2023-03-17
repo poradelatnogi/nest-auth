@@ -24,7 +24,7 @@ export class MicrosoftStrategy extends PassportStrategy(Strategy, 'microsoft') {
     super({
       clientID,
       clientSecret,
-      callbackURL: callbackURL || '/google/callback',
+      callbackURL,
       prompt: 'select_account',
       scope: ['user.read'],
       // Microsoft specific options
