@@ -1,35 +1,32 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { NestAuthService } from './nest-auth.service';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from './dto';
-import { NestAuth } from './nest-auth.entity';
+import { NestAuth } from '../nest-auth.entity';
+import { Repository } from 'typeorm';
+import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from '../dto';
 import { JwtService } from '@nestjs/jwt';
-import { MailerService } from '@nestjs-modules/mailer';
 import crypto from 'crypto';
-
-export type GetUserWithTokenType = ReturnType<
-  NestAuthTypeOrmService['getUserWithTokens']
->;
+import { NestAuthMailService } from './nest-auth-mail.service';
 
 @Injectable()
 export class NestAuthTypeOrmService extends NestAuthService {
   constructor(
     @InjectRepository(NestAuth)
-    private readonly nestAuthRepository: Repository<NestAuth>,
+    protected readonly nestAuthRepository: Repository<NestAuth>,
     jwtService: JwtService,
-    mailerService: MailerService,
+    protected readonly nestAuthMailerService: NestAuthMailService,
   ) {
-    super(jwtService, mailerService);
+    super(jwtService);
   }
 
   async signIn(signInDto: SignInDto): Promise<GetUserWithTokenType> {
     const { email, password } = signInDto;
 
     const user = await this.findUserByEmail(email);
+    if (!user) throw new BadRequestException('IS_NOT_EXISTS');
     const isMatched = await NestAuthTypeOrmService.comparePassword(
       password,
-      user?.password,
+      user.password,
     );
     if (!isMatched) throw new BadRequestException('BAD_CREDENTIALS');
 
@@ -42,7 +39,9 @@ export class NestAuthTypeOrmService extends NestAuthService {
     const userExists = await this.findUserByEmail(email);
     if (userExists) throw new BadRequestException('ALREADY_EXISTS');
     signUpDto.password = await NestAuthTypeOrmService.encryptPassword(password);
-    const user = await this.nestAuthRepository.create(signUpDto);
+
+    const entity = this.nestAuthRepository.create(signUpDto);
+    const user = await this.nestAuthRepository.manager.save(entity);
 
     return this.getUserWithTokens(user);
   }
@@ -53,6 +52,12 @@ export class NestAuthTypeOrmService extends NestAuthService {
     const token = this.generateResetPasswordToken(email);
     user.resetPasswordToken = token;
     await this.nestAuthRepository.save(user);
+    await this.nestAuthMailerService.sendResetPassword({
+      to: user.email,
+      context: {
+        user,
+      },
+    });
   }
 
   async passwordNew({
@@ -62,28 +67,26 @@ export class NestAuthTypeOrmService extends NestAuthService {
     const user = await this.nestAuthRepository.findOne({
       where: { resetPasswordToken },
     });
+    if (!user) throw new BadRequestException('IS_NOT_EXISTS');
     const isValid = await this.verifyResetPasswordToken(
-      user?.email,
+      user.email,
       resetPasswordToken,
     );
     if (!isValid) throw new BadRequestException('TOKEN_INVALID');
 
     user.password = await NestAuthTypeOrmService.encryptPassword(password);
     user.resetPasswordToken = null;
-    await this.nestAuthRepository.save(user);
-    await this.sendResetPassword({
-      to: user.email,
-      context: {
-        user,
-      },
-    });
+    await this.nestAuthRepository.manager.save(user);
   }
 
   async strategyCallback(strategy: string, profile: any) {
     const signUpDto = await this.cleanProfilePayload(strategy, profile);
 
     let user = await this.findUserByEmail(signUpDto.email);
-    if (!user) user = await this.nestAuthRepository.create(signUpDto);
+    if (!user) {
+      const entity = this.nestAuthRepository.create(signUpDto);
+      user = await this.nestAuthRepository.manager.save(entity);
+    }
 
     return this.getUserWithTokens(user);
   }
@@ -114,6 +117,11 @@ export class NestAuthTypeOrmService extends NestAuthService {
   private async findUserByEmail(email): Promise<NestAuth> {
     return this.nestAuthRepository.findOne({
       where: { email },
+      select: ['password', 'email', 'id'],
     });
   }
 }
+
+export type GetUserWithTokenType = ReturnType<
+  NestAuthTypeOrmService['getUserWithTokens']
+>;

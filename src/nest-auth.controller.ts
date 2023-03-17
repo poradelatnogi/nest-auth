@@ -4,23 +4,18 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { NestAuthService } from './nest-auth.service';
-import { SignInDto, SignUpDto, PasswordResetDto, PasswordNewDto } from './dto';
+import { NestAuthService } from './services/nest-auth.service';
+import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from './dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 
 @Controller('auth')
 export class NestAuthController {
-  constructor(
-    @Inject(NestAuthService)
-    private readonly nestAuthService: NestAuthService,
-  ) {}
-
+  constructor(protected readonly nestAuthService: NestAuthService) {}
   @Post('sign-in')
   @HttpCode(HttpStatus.OK)
   async signIn(@Body() signInDto: SignInDto, ...[]: any[]): Promise<any> {
@@ -57,8 +52,8 @@ export class NestAuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   @HttpCode(HttpStatus.OK)
-  async googleCallback(@Req() req: Request) {
-    return this.nestAuthService.strategyCallback('google', req);
+  async googleCallback(@Req() req: Request & { user?: any }) {
+    return this.nestAuthService.strategyCallback('google', req.user);
   }
 
   @Get('microsoft')
@@ -71,7 +66,7 @@ export class NestAuthController {
   @Get('microsoft/callback')
   @UseGuards(AuthGuard('microsoft'))
   @HttpCode(HttpStatus.OK)
-  async microsoftCallback(@Req() req: Request) {
-    return this.nestAuthService.strategyCallback('microsoft', req);
+  async microsoftCallback(@Req() req: Request & { user?: any }) {
+    return this.nestAuthService.strategyCallback('microsoft', req.user);
   }
 }

@@ -9,29 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GoogleStrategy = void 0;
-const passport_1 = require("@nestjs/passport");
-const passport_google_oauth20_1 = require("passport-google-oauth20");
+exports.NestAuthMailService = void 0;
 const common_1 = require("@nestjs/common");
-let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrategy)(passport_google_oauth20_1.Strategy, 'google') {
-    constructor(options) {
-        const { clientID, clientSecret, callbackURL } = options;
-        super({
-            clientID,
-            clientSecret,
-            callbackURL,
-            scope: ['email', 'profile'],
-        });
+const mailer_1 = require("@nestjs-modules/mailer");
+let NestAuthMailService = class NestAuthMailService {
+    constructor(mailerService) {
+        this.mailerService = mailerService;
     }
-    async validate(accessToken, refreshToken, profile, done) {
-        if (!profile)
-            done('NOT_AUTHORIZED', null);
-        done(null, profile);
+    async sendResetPassword(options) {
+        try {
+            options.subject || (options.subject = 'Reset password token');
+            options.template || (options.template = 'emails/reset-password');
+            await this.mailerService.sendMail(Object.assign({}, options));
+        }
+        catch (e) {
+            common_1.Logger.error(e);
+        }
     }
 };
-GoogleStrategy = __decorate([
+NestAuthMailService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [Object])
-], GoogleStrategy);
-exports.GoogleStrategy = GoogleStrategy;
-//# sourceMappingURL=google.strategy.js.map
+    __metadata("design:paramtypes", [mailer_1.MailerService])
+], NestAuthMailService);
+exports.NestAuthMailService = NestAuthMailService;
+//# sourceMappingURL=nest-auth-mail.service.js.map

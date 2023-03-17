@@ -10,7 +10,7 @@ export class NestAuth {
   firstName: string;
 
   @Column('text', { nullable: true })
-  lastName: string | null;
+  lastName?: string | null;
 
   @Column('text', { nullable: false })
   email: string;

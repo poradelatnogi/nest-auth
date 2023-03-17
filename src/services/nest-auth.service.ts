@@ -1,19 +1,12 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { SignInDto, SignUpDto, PasswordResetDto, PasswordNewDto } from './dto';
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from '../dto';
 import * as bcrypt from 'bcrypt';
 import crypto from 'crypto';
-import { JwtService } from '@nestjs/jwt';
-import { MailerService } from '@nestjs-modules/mailer';
-import { Address } from 'cluster';
-import { ISendMailOptions } from '@nestjs-modules/mailer/dist/interfaces/send-mail-options.interface';
 
 @Injectable()
 export class NestAuthService {
-  constructor(
-    public readonly jwtService: JwtService,
-    public readonly mailerService: MailerService,
-    ...[]: any[]
-  ) {}
+  constructor(protected jwtService: JwtService) {}
 
   async signIn(signInDto: SignInDto, ...[]: any[]): Promise<any> {
     // check if user authenticated, return jwt payload
@@ -45,15 +38,6 @@ export class NestAuthService {
     // get user data via auth service. Example: Google, Twitter, Facebook etc.
   }
 
-  static async encryptPassword(password: string): Promise<string> {
-    const salt = await bcrypt.genSalt(10);
-    return bcrypt.hash(password, salt);
-  }
-
-  static async comparePassword(hashToCompare: string, expectedHash: string) {
-    return await bcrypt.compare(hashToCompare, expectedHash);
-  }
-
   generateResetPasswordToken(email: string, expiresIn = '1d') {
     const secret = crypto.randomBytes(20).toString('hex');
     const payload = {
@@ -66,9 +50,10 @@ export class NestAuthService {
   async verifyResetPasswordToken(email: string, token: string) {
     try {
       const decodedToken: any = this.jwtService.decode(token);
-
       if (decodedToken.email !== email) return false;
-      await this.jwtService.verify(token, decodedToken.secret);
+      await this.jwtService.verify(token, {
+        secret: decodedToken.secret,
+      });
 
       return true;
     } catch (_) {
@@ -76,13 +61,12 @@ export class NestAuthService {
     }
   }
 
-  async sendResetPassword(options: ISendMailOptions) {
-    try {
-      options.subject ||= 'Reset password token';
-      options.template ||= 'emails/reset-password';
-      await this.mailerService.sendMail({ ...options });
-    } catch (e) {
-      Logger.error(e);
-    }
+  static async encryptPassword(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
+  }
+
+  static async comparePassword(hashToCompare: string, expectedHash: string) {
+    return await bcrypt.compare(hashToCompare, expectedHash);
   }
 }

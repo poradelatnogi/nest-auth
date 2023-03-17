@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NestAuthController = void 0;
 const common_1 = require("@nestjs/common");
-const nest_auth_service_1 = require("./nest-auth.service");
+const nest_auth_service_1 = require("./services/nest-auth.service");
 const dto_1 = require("./dto");
 const passport_1 = require("@nestjs/passport");
 let NestAuthController = class NestAuthController {
@@ -37,13 +37,13 @@ let NestAuthController = class NestAuthController {
         // Do nothing
     }
     async googleCallback(req) {
-        return this.nestAuthService.strategyCallback('google', req);
+        return this.nestAuthService.strategyCallback('google', req.user);
     }
     async microsoft() {
         // Do nothing
     }
     async microsoftCallback(req) {
-        return this.nestAuthService.strategyCallback('microsoft', req);
+        return this.nestAuthService.strategyCallback('microsoft', req.user);
     }
 };
 __decorate([
@@ -114,7 +114,6 @@ __decorate([
 ], NestAuthController.prototype, "microsoftCallback", null);
 NestAuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __param(0, (0, common_1.Inject)(nest_auth_service_1.NestAuthService)),
     __metadata("design:paramtypes", [nest_auth_service_1.NestAuthService])
 ], NestAuthController);
 exports.NestAuthController = NestAuthController;

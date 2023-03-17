@@ -10,7 +10,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     super({
       clientID,
       clientSecret,
-      callbackURL: callbackURL || '/google/callback',
+      callbackURL,
       scope: ['email', 'profile'],
     });
   }
