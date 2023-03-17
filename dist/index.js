@@ -21,4 +21,5 @@ __exportStar(require("./nest-auth.service"), exports);
 __exportStar(require("./nest-auth-type-orm.service"), exports);
 __exportStar(require("./nest-auth.controller"), exports);
 __exportStar(require("./nest-auth.entity"), exports);
+__exportStar(require("./nest-auth.module"), exports);
 //# sourceMappingURL=index.js.map
