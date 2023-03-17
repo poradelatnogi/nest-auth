@@ -7,13 +7,17 @@ Authentication codebase for NestJS application.
 Install @nestjs/jwt module.
 ```bash
 npm install --save @nestjs/jwt
+# or
+yarn add @nestjs/jwt
 ```
 
 Install @nestjs-modules/mailer module
 ```bash
 yarn add @nestjs-modules/mailer nodemailer
+yarn add -D @types/nodemailer
 #or
 npm install --save @nestjs-modules/mailer nodemailer
+npm install --save-dev @types/nodemailer
 ```
 Hint: handlebars, pug and ejs is an optional dependency, if you want to use the template, you must install it.
 
@@ -81,10 +85,17 @@ cd ./src/templates/emails
 touch reset-password.hbs
 # touch reset-password.ejs
 # touch reset-password.pug
+# Back to the root folder
+cd ../../../
 ```
 Inside the template, user variable is available for you.
 
 ### Preparing database configuration:
+
+In this example I'm also using ConfigModule. Install @nestjs/config dependency if it isn't installed.
+```bash
+npm install --save @nestjs/config
+```
 
 Install and prepare @nestjs/typeorm module. In my case, I'm using postgresql. If you use mysql replace mysql2 instead of pg.
 ```bash
@@ -124,10 +135,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 })
 export class AppModule {}
 ```
-In this example I'm also using ConfigModule. Install @nestjs/config dependency if it isn't installed.
-```bash
-npm install --save @nestjs/config
-```
 
 ## Installation
 
@@ -154,11 +161,12 @@ nest g mo user
 Create or update your user.entity.ts file.
 ```bash
 # Create file
-
 # Go to module
 cd ./src/user
 # Create file if it isn't exists
 touch user.entity.ts
+# Back to the root folder
+cd ../../
 ```
 ```ts
 import { NestAuth } from "nest-auth"
@@ -215,7 +223,12 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { User } from '../user/user.entity';
 import { JwtModule } from '@nestjs/jwt';
-import { GoogleStrategyProvider, JwtStrategyProvider, MicrosoftStrategyProvider } from 'nest-auth';
+import {
+  GoogleStrategyProvider,
+  JwtStrategyProvider,
+  MicrosoftStrategyProvider,
+  NestAuthService,
+} from 'nest-auth';
 
 @Module({
   imports: [
@@ -232,6 +245,8 @@ import { GoogleStrategyProvider, JwtStrategyProvider, MicrosoftStrategyProvider 
   ],
   controllers: [AuthController],
   providers: [
+    // Required Service
+    NestAuthService,
     AuthService,
     // Required provider
     JwtStrategyProvider.provide({
