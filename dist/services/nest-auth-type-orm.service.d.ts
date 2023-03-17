@@ -1,13 +1,13 @@
 import { NestAuthService } from './nest-auth.service';
+import { NestAuth } from '../nest-auth.entity';
 import { Repository } from 'typeorm';
-import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from './dto';
-import { NestAuth } from './nest-auth.entity';
+import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from '../dto';
 import { JwtService } from '@nestjs/jwt';
-import { MailerService } from '@nestjs-modules/mailer';
-export type GetUserWithTokenType = ReturnType<NestAuthTypeOrmService['getUserWithTokens']>;
+import { NestAuthMailService } from './nest-auth-mail.service';
 export declare class NestAuthTypeOrmService extends NestAuthService {
-    private readonly nestAuthRepository;
-    constructor(nestAuthRepository: Repository<NestAuth>, jwtService: JwtService, mailerService: MailerService);
+    protected readonly nestAuthRepository: Repository<NestAuth>;
+    protected readonly nestAuthMailerService: NestAuthMailService;
+    constructor(nestAuthRepository: Repository<NestAuth>, jwtService: JwtService, nestAuthMailerService: NestAuthMailService);
     signIn(signInDto: SignInDto): Promise<GetUserWithTokenType>;
     signUp(signUpDto: SignUpDto): Promise<GetUserWithTokenType>;
     passwordReset({ email }: PasswordResetDto): Promise<void>;
@@ -31,4 +31,5 @@ export declare class NestAuthTypeOrmService extends NestAuthService {
     };
     private findUserByEmail;
 }
+export type GetUserWithTokenType = ReturnType<NestAuthTypeOrmService['getUserWithTokens']>;
 //# sourceMappingURL=nest-auth-type-orm.service.d.ts.map

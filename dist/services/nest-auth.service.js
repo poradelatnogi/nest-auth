@@ -37,14 +37,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NestAuthService = void 0;
 const common_1 = require("@nestjs/common");
+const jwt_1 = require("@nestjs/jwt");
 const bcrypt = __importStar(require("bcrypt"));
 const crypto_1 = __importDefault(require("crypto"));
-const jwt_1 = require("@nestjs/jwt");
-const mailer_1 = require("@nestjs-modules/mailer");
 let NestAuthService = class NestAuthService {
-    constructor(jwtService, mailerService, ...[]) {
+    constructor(jwtService) {
         this.jwtService = jwtService;
-        this.mailerService = mailerService;
     }
     async signIn(signInDto, ...[]) {
         // check if user authenticated, return jwt payload
@@ -61,13 +59,6 @@ let NestAuthService = class NestAuthService {
     async strategyCallback(strategy, profile, ...[]) {
         // get user data via auth service. Example: Google, Twitter, Facebook etc.
     }
-    static async encryptPassword(password) {
-        const salt = await bcrypt.genSalt(10);
-        return bcrypt.hash(password, salt);
-    }
-    static async comparePassword(hashToCompare, expectedHash) {
-        return await bcrypt.compare(hashToCompare, expectedHash);
-    }
     generateResetPasswordToken(email, expiresIn = '1d') {
         const secret = crypto_1.default.randomBytes(20).toString('hex');
         const payload = {
@@ -81,28 +72,26 @@ let NestAuthService = class NestAuthService {
             const decodedToken = this.jwtService.decode(token);
             if (decodedToken.email !== email)
                 return false;
-            await this.jwtService.verify(token, decodedToken.secret);
+            await this.jwtService.verify(token, {
+                secret: decodedToken.secret,
+            });
             return true;
         }
         catch (_) {
             return false;
         }
     }
-    async sendResetPassword(options) {
-        try {
-            options.subject || (options.subject = 'Reset password token');
-            options.template || (options.template = 'emails/reset-password');
-            await this.mailerService.sendMail(Object.assign({}, options));
-        }
-        catch (e) {
-            common_1.Logger.error(e);
-        }
+    static async encryptPassword(password) {
+        const salt = await bcrypt.genSalt(10);
+        return bcrypt.hash(password, salt);
+    }
+    static async comparePassword(hashToCompare, expectedHash) {
+        return await bcrypt.compare(hashToCompare, expectedHash);
     }
 };
 NestAuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [jwt_1.JwtService,
-        mailer_1.MailerService, Object])
+    __metadata("design:paramtypes", [jwt_1.JwtService])
 ], NestAuthService);
 exports.NestAuthService = NestAuthService;
 //# sourceMappingURL=nest-auth.service.js.map

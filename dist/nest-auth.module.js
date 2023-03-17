@@ -9,14 +9,20 @@ var NestAuthModule_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NestAuthModule = void 0;
 const common_1 = require("@nestjs/common");
-const nest_auth_service_1 = require("./nest-auth.service");
-const nest_auth_type_orm_service_1 = require("./nest-auth-type-orm.service");
+const nest_auth_service_1 = require("./services/nest-auth.service");
+const jwt_1 = require("@nestjs/jwt");
+const nest_auth_mail_service_1 = require("./services/nest-auth-mail.service");
+const mailer_1 = require("@nestjs-modules/mailer");
 let NestAuthModule = NestAuthModule_1 = class NestAuthModule {
-    static register() {
+    static register(options) {
         return {
             module: NestAuthModule_1,
-            providers: [nest_auth_service_1.NestAuthService, nest_auth_type_orm_service_1.NestAuthTypeOrmService],
-            exports: [nest_auth_service_1.NestAuthService, nest_auth_type_orm_service_1.NestAuthTypeOrmService],
+            imports: [
+                jwt_1.JwtModule.register({}),
+                mailer_1.MailerModule.forRoot(options.mailerOptions),
+            ],
+            providers: [nest_auth_service_1.NestAuthService, nest_auth_mail_service_1.NestAuthMailService, jwt_1.JwtService],
+            exports: [nest_auth_service_1.NestAuthService, nest_auth_mail_service_1.NestAuthMailService, jwt_1.JwtService],
         };
     }
 };

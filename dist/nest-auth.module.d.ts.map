@@ -1,1 +1,1 @@
-{"version":3,"file":"nest-auth.module.d.ts","sourceRoot":"","sources":["../src/nest-auth.module.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAU,MAAM,gBAAgB,CAAC;AAIvD,qBACa,cAAc;IACzB,MAAM,CAAC,QAAQ,IAAI,aAAa;CAOjC"}
+{"version":3,"file":"nest-auth.module.d.ts","sourceRoot":"","sources":["../src/nest-auth.module.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAU,MAAM,gBAAgB,CAAC;AAIvD,OAAO,EAAgB,aAAa,EAAE,MAAM,wBAAwB,CAAC;AAErE,qBACa,cAAc;IACzB,MAAM,CAAC,QAAQ,CAAC,OAAO,EAAE;QAAE,aAAa,EAAE,aAAa,CAAA;KAAE,GAAG,aAAa;CAW1E"}

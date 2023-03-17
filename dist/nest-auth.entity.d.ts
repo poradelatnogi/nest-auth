@@ -2,7 +2,7 @@ import { UserRoles } from './enums/user-role.enum';
 export declare class NestAuth {
     id: number;
     firstName: string;
-    lastName: string | null;
+    lastName?: string | null;
     email: string;
     password: string;
     roles: UserRoles;
