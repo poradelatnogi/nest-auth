@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NestAuth = void 0;
 const typeorm_1 = require("typeorm");
-const user_role_enum_1 = require("./enums/user-role.enum");
 let NestAuth = class NestAuth {
 };
 __decorate([
@@ -34,10 +33,6 @@ __decorate([
     (0, typeorm_1.Column)('text', { nullable: true, select: false }),
     __metadata("design:type", String)
 ], NestAuth.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: user_role_enum_1.UserRoles, nullable: true }),
-    __metadata("design:type", String)
-], NestAuth.prototype, "roles", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", String)

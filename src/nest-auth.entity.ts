@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { UserRoles } from './enums/user-role.enum';
 
 @Entity({ name: 'user' })
 export class NestAuth {
@@ -17,9 +16,6 @@ export class NestAuth {
 
   @Column('text', { nullable: true, select: false })
   password: string;
-
-  @Column({ type: 'enum', enum: UserRoles, nullable: true })
-  roles: UserRoles;
 
   @Column({ type: 'text', nullable: true })
   resetPasswordToken?: string | null;
