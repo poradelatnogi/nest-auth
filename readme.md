@@ -200,7 +200,7 @@ import { AuthService } from './auth.service';
 import {
   GoogleStrategyProvider,
   JwtStrategyProvider,
-  NestAuth,
+  MicrosoftStrategyProvider,
   NestAuthModule,
 } from 'nest-auth';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -236,16 +236,16 @@ import { ConfigModule } from '@nestjs/config';
             user: process.env.MAIL_USER,
             pass: process.env.MAIL_PASSWORD,
           },
-          defaults: {
-            from:
-              '"' + process.env.APP_NAME + '" <' + process.env.MAIL_FROM + '>',
-          },
-          template: {
-            dir: join(__dirname, 'templates'),
-            adapter: new HandlebarsAdapter(),
-            options: {
-              strict: true,
-            },
+        },
+        defaults: {
+          from:
+            '"' + process.env.APP_NAME + '" <' + process.env.MAIL_FROM + '>',
+        },
+        template: {
+          dir: join(__dirname, 'templates'),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,
           },
         },
       },
@@ -279,9 +279,9 @@ You also need to create template file for reset password feature.
 Create email templates folder. In my case, I created it inside ```src/auth``` folder. According to my configuration above.
 
 ```bash
-mkdir -p ./src/user/templates/emails
+mkdir -p ./src/auth/templates/emails
 # go to folder
-cd ./src/user/templates/emails
+cd ./src/auth/templates/emails
 # create template file
 touch reset-password.hbs
 # touch reset-password.ejs
