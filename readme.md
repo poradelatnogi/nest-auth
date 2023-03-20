@@ -268,6 +268,7 @@ import { ConfigModule } from '@nestjs/config';
     MicrosoftStrategyProvider.provide({
       clientID: process.env.MICROSOFT_CLIENT_ID,
       clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
+      callbackURL: process.env.MICROSOFT_CALLBACK_URL,
       tenant: process.env.MICROSOFT_TENANTID,
     }),
   ],
