@@ -27,22 +27,22 @@ let NestAuthController = class NestAuthController {
     async signUp(signUpDto, ...[]) {
         return this.nestAuthService.signUp(signUpDto);
     }
-    async passwordReset(passwordResetDto) {
+    async passwordReset(passwordResetDto, ...[]) {
         return this.nestAuthService.passwordReset(passwordResetDto);
     }
-    async passwordNew(passwordNewDto) {
+    async passwordNew(passwordNewDto, ...[]) {
         return this.nestAuthService.passwordNew(passwordNewDto);
     }
-    async google() {
+    async google(...[]) {
         // Do nothing
     }
-    async googleCallback(req) {
+    async googleCallback(req, ...[]) {
         return this.nestAuthService.strategyCallback('google', req.user);
     }
-    async microsoft() {
+    async microsoft(...[]) {
         // Do nothing
     }
-    async microsoftCallback(req) {
+    async microsoftCallback(req, ...[]) {
         return this.nestAuthService.strategyCallback('microsoft', req.user);
     }
 };
@@ -67,7 +67,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.PasswordResetDto]),
+    __metadata("design:paramtypes", [dto_1.PasswordResetDto, Object]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "passwordReset", null);
 __decorate([
@@ -75,7 +75,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.PasswordNewDto]),
+    __metadata("design:paramtypes", [dto_1.PasswordNewDto, Object]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "passwordNew", null);
 __decorate([
@@ -83,7 +83,7 @@ __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
     (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "google", null);
 __decorate([
@@ -92,7 +92,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "googleCallback", null);
 __decorate([
@@ -100,7 +100,7 @@ __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('microsoft')),
     (0, common_1.HttpCode)(common_1.HttpStatus.ACCEPTED),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "microsoft", null);
 __decorate([
@@ -109,7 +109,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], NestAuthController.prototype, "microsoftCallback", null);
 NestAuthController = __decorate([

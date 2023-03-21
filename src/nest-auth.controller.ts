@@ -32,41 +32,45 @@ export class NestAuthController {
   @HttpCode(HttpStatus.ACCEPTED)
   async passwordReset(
     @Body() passwordResetDto: PasswordResetDto,
+    ...[]: any[]
   ): Promise<any> {
     return this.nestAuthService.passwordReset(passwordResetDto);
   }
 
   @Post('password/new')
   @HttpCode(HttpStatus.ACCEPTED)
-  async passwordNew(@Body() passwordNewDto: PasswordNewDto): Promise<any> {
+  async passwordNew(
+    @Body() passwordNewDto: PasswordNewDto,
+    ...[]: any[]
+  ): Promise<any> {
     return this.nestAuthService.passwordNew(passwordNewDto);
   }
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
   @HttpCode(HttpStatus.ACCEPTED)
-  async google(): Promise<void> {
+  async google(...[]: any[]): Promise<void> {
     // Do nothing
   }
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   @HttpCode(HttpStatus.OK)
-  async googleCallback(@Req() req: Request & { user?: any }) {
+  async googleCallback(@Req() req: Request & { user?: any }, ...[]: any[]) {
     return this.nestAuthService.strategyCallback('google', req.user);
   }
 
   @Get('microsoft')
   @UseGuards(AuthGuard('microsoft'))
   @HttpCode(HttpStatus.ACCEPTED)
-  async microsoft(): Promise<void> {
+  async microsoft(...[]: any[]): Promise<void> {
     // Do nothing
   }
 
   @Get('microsoft/callback')
   @UseGuards(AuthGuard('microsoft'))
   @HttpCode(HttpStatus.OK)
-  async microsoftCallback(@Req() req: Request & { user?: any }) {
+  async microsoftCallback(@Req() req: Request & { user?: any }, ...[]: any[]) {
     return this.nestAuthService.strategyCallback('microsoft', req.user);
   }
 }

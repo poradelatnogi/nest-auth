@@ -31,7 +31,7 @@ let NestAuthTypeOrmService = NestAuthTypeOrmService_1 = class NestAuthTypeOrmSer
         this.nestAuthRepository = nestAuthRepository;
         this.nestAuthMailerService = nestAuthMailerService;
     }
-    async signIn(signInDto) {
+    async signIn(signInDto, ...[]) {
         const { email, password } = signInDto;
         const user = await this.findUserByEmail(email);
         if (!user)
@@ -41,7 +41,7 @@ let NestAuthTypeOrmService = NestAuthTypeOrmService_1 = class NestAuthTypeOrmSer
             throw new common_1.BadRequestException('BAD_CREDENTIALS');
         return this.getUserWithTokens(user);
     }
-    async signUp(signUpDto) {
+    async signUp(signUpDto, ...[]) {
         const { email, password } = signUpDto;
         const userExists = await this.findUserByEmail(email);
         if (userExists)
@@ -51,7 +51,7 @@ let NestAuthTypeOrmService = NestAuthTypeOrmService_1 = class NestAuthTypeOrmSer
         const user = await this.nestAuthRepository.manager.save(entity);
         return this.getUserWithTokens(user);
     }
-    async passwordReset({ email }) {
+    async passwordReset({ email }, ...[]) {
         const user = await this.findUserByEmail(email);
         if (!user)
             throw new common_1.BadRequestException('IS_NOT_EXISTS');
@@ -65,7 +65,7 @@ let NestAuthTypeOrmService = NestAuthTypeOrmService_1 = class NestAuthTypeOrmSer
             },
         });
     }
-    async passwordNew({ resetPasswordToken, password, }) {
+    async passwordNew({ resetPasswordToken, password }, ...[]) {
         const user = await this.nestAuthRepository.findOne({
             where: { resetPasswordToken },
         });
@@ -78,7 +78,7 @@ let NestAuthTypeOrmService = NestAuthTypeOrmService_1 = class NestAuthTypeOrmSer
         user.resetPasswordToken = null;
         await this.nestAuthRepository.manager.save(user);
     }
-    async strategyCallback(strategy, profile) {
+    async strategyCallback(strategy, profile, ...[]) {
         const signUpDto = await this.cleanProfilePayload(strategy, profile);
         let user = await this.findUserByEmail(signUpDto.email);
         if (!user) {

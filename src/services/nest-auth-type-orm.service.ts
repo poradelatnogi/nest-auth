@@ -19,7 +19,10 @@ export class NestAuthTypeOrmService extends NestAuthService {
     super(jwtService);
   }
 
-  async signIn(signInDto: SignInDto): Promise<GetUserWithTokenType> {
+  async signIn(
+    signInDto: SignInDto,
+    ...[]: any[]
+  ): Promise<GetUserWithTokenType> {
     const { email, password } = signInDto;
 
     const user = await this.findUserByEmail(email);
@@ -33,7 +36,10 @@ export class NestAuthTypeOrmService extends NestAuthService {
     return this.getUserWithTokens(user);
   }
 
-  async signUp(signUpDto: SignUpDto): Promise<GetUserWithTokenType> {
+  async signUp(
+    signUpDto: SignUpDto,
+    ...[]: any[]
+  ): Promise<GetUserWithTokenType> {
     const { email, password } = signUpDto;
 
     const userExists = await this.findUserByEmail(email);
@@ -46,7 +52,10 @@ export class NestAuthTypeOrmService extends NestAuthService {
     return this.getUserWithTokens(user);
   }
 
-  async passwordReset({ email }: PasswordResetDto): Promise<void> {
+  async passwordReset(
+    { email }: PasswordResetDto,
+    ...[]: any[]
+  ): Promise<void> {
     const user = await this.findUserByEmail(email);
     if (!user) throw new BadRequestException('IS_NOT_EXISTS');
     const token = this.generateResetPasswordToken(email);
@@ -60,10 +69,10 @@ export class NestAuthTypeOrmService extends NestAuthService {
     });
   }
 
-  async passwordNew({
-    resetPasswordToken,
-    password,
-  }: PasswordNewDto): Promise<void> {
+  async passwordNew(
+    { resetPasswordToken, password }: PasswordNewDto,
+    ...[]: any[]
+  ): Promise<void> {
     const user = await this.nestAuthRepository.findOne({
       where: { resetPasswordToken },
     });
@@ -79,7 +88,7 @@ export class NestAuthTypeOrmService extends NestAuthService {
     await this.nestAuthRepository.manager.save(user);
   }
 
-  async strategyCallback(strategy: string, profile: any) {
+  async strategyCallback(strategy: string, profile: any, ...[]: any[]) {
     const signUpDto = await this.cleanProfilePayload(strategy, profile);
 
     let user = await this.findUserByEmail(signUpDto.email);
