@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { NestAuthService } from './nest-auth.service';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NestAuth } from '../nest-auth.entity';
+import { NestAuth } from '../entities/nest-auth.entity';
 import { Repository } from 'typeorm';
 import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from '../dto';
 import { JwtService } from '@nestjs/jwt';

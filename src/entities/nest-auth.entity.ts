@@ -19,4 +19,7 @@ export class NestAuth {
 
   @Column({ type: 'text', nullable: true })
   resetPasswordToken?: string | null;
+
+  @Column({ type: 'boolean', default: false })
+  admin?: boolean;
 }

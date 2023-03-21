@@ -37,6 +37,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", String)
 ], NestAuth.prototype, "resetPasswordToken", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'boolean', default: false }),
+    __metadata("design:type", Boolean)
+], NestAuth.prototype, "admin", void 0);
 NestAuth = __decorate([
     (0, typeorm_1.Entity)({ name: 'user' })
 ], NestAuth);

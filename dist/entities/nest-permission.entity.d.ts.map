@@ -1,0 +1,1 @@
+{"version":3,"file":"nest-permission.entity.d.ts","sourceRoot":"","sources":["../../src/entities/nest-permission.entity.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,uBAAuB,EAAE,MAAM,qCAAqC,CAAC;AAC9E,OAAO,EAAE,cAAc,EAAE,MAAM,UAAU,CAAC;AAE1C,qBACa,cAAc;IAEzB,EAAE,EAAE,MAAM,CAAC;IAGX,IAAI,EAAE,uBAAuB,CAAC;IAG9B,IAAI,EAAE,cAAc,CAAC;CACtB"}

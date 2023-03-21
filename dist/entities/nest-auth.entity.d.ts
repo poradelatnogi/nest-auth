@@ -5,5 +5,6 @@ export declare class NestAuth {
     email: string;
     password: string;
     resetPasswordToken?: string | null;
+    admin?: boolean;
 }
 //# sourceMappingURL=nest-auth.entity.d.ts.map

@@ -1,5 +1,5 @@
 import { NestAuthService } from './nest-auth.service';
-import { NestAuth } from '../nest-auth.entity';
+import { NestAuth } from '../entities/nest-auth.entity';
 import { Repository } from 'typeorm';
 import { PasswordNewDto, PasswordResetDto, SignInDto, SignUpDto } from '../dto';
 import { JwtService } from '@nestjs/jwt';
