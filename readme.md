@@ -4,16 +4,16 @@ Authentication module based on NestJS. Included auth controller, services etc. T
 
 ### API endpoints
 
-| Method | Route                    | DTO                                                                               |
-|--------|--------------------------|-----------------------------------------------------------------------------------|
-| POST   | /auth/sign-in            | ``` { email: string, password: string } ```                                       |
-| POST   | /auth/sign-up            | ``` { email: string, password: string, firstName: string, lastName?: string } ``` |
-| POST   | /auth/password/reset     | ``` { email: string } ```                                                         |
-| POST   | /auth/password/new       | ``` { resetPasswordToken: string, password: string } ```                          |
-| GET    | /auth/google             | ``` none ```                                                                      |
-| GET    | /auth/google/callback    | ``` none ```                                                                      |
-| GET    | /auth/microsoft          | ``` none ```                                                                      |
-| GET    | /auth/microsoft/callback | ``` none ```                                                                      |
+| Method | Route                    | Request DTO                                                                       | Response DTO                                                                            |
+|--------|--------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| POST   | /auth/sign-in            | ``` { email: string, password: string } ```                                       | ``` { accessToken: string, refreshToken: string, user: { id: string, email: string }``` |
+| POST   | /auth/sign-up            | ``` { email: string, password: string, firstName: string, lastName?: string } ``` | ``` { accessToken: string, refreshToken: string, user: { id: string, email: string }``` |
+| POST   | /auth/password/reset     | ``` { email: string } ```                                                         | ``` none ```                                                                            |
+| POST   | /auth/password/new       | ``` { resetPasswordToken: string, password: string } ```                          | ``` none ```                                                                            |
+| GET    | /auth/google             | ``` none ```                                                                      | ``` none ```                                                                            |
+| GET    | /auth/google/callback    | ``` none ```                                                                      | ``` { accessToken: string, refreshToken: string, user: { id: string, email: string }``` |
+| GET    | /auth/microsoft          | ``` none ```                                                                      | ``` none ```                                                                            |
+| GET    | /auth/microsoft/callback | ``` none ```                                                                      | ``` { accessToken: string, refreshToken: string, user: { id: string, email: string }``` |
 
 ## Before installation:
 
