@@ -1,4 +1,5 @@
 export * from './dto';
+export * from './guards';
 export * from './strategies';
 export * from './services';
 export * from './nest-auth.controller';
