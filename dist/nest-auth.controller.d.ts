@@ -6,15 +6,15 @@ export declare class NestAuthController {
     constructor(nestAuthService: NestAuthService);
     signIn(signInDto: SignInDto, ...[]: any[]): Promise<any>;
     signUp(signUpDto: SignUpDto, ...[]: any[]): Promise<any>;
-    passwordReset(passwordResetDto: PasswordResetDto): Promise<any>;
-    passwordNew(passwordNewDto: PasswordNewDto): Promise<any>;
-    google(): Promise<void>;
+    passwordReset(passwordResetDto: PasswordResetDto, ...[]: any[]): Promise<any>;
+    passwordNew(passwordNewDto: PasswordNewDto, ...[]: any[]): Promise<any>;
+    google(...[]: any[]): Promise<void>;
     googleCallback(req: Request & {
         user?: any;
-    }): Promise<any>;
-    microsoft(): Promise<void>;
+    }, ...[]: any[]): Promise<any>;
+    microsoft(...[]: any[]): Promise<void>;
     microsoftCallback(req: Request & {
         user?: any;
-    }): Promise<any>;
+    }, ...[]: any[]): Promise<any>;
 }
 //# sourceMappingURL=nest-auth.controller.d.ts.map

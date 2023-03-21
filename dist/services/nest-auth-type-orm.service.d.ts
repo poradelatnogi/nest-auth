@@ -8,11 +8,11 @@ export declare class NestAuthTypeOrmService extends NestAuthService {
     protected readonly nestAuthRepository: Repository<NestAuth>;
     protected readonly nestAuthMailerService: NestAuthMailService;
     constructor(nestAuthRepository: Repository<NestAuth>, jwtService: JwtService, nestAuthMailerService: NestAuthMailService);
-    signIn(signInDto: SignInDto): Promise<GetUserWithTokenType>;
-    signUp(signUpDto: SignUpDto): Promise<GetUserWithTokenType>;
-    passwordReset({ email }: PasswordResetDto): Promise<void>;
-    passwordNew({ resetPasswordToken, password, }: PasswordNewDto): Promise<void>;
-    strategyCallback(strategy: string, profile: any): Promise<{
+    signIn(signInDto: SignInDto, ...[]: any[]): Promise<GetUserWithTokenType>;
+    signUp(signUpDto: SignUpDto, ...[]: any[]): Promise<GetUserWithTokenType>;
+    passwordReset({ email }: PasswordResetDto, ...[]: any[]): Promise<void>;
+    passwordNew({ resetPasswordToken, password }: PasswordNewDto, ...[]: any[]): Promise<void>;
+    strategyCallback(strategy: string, profile: any, ...[]: any[]): Promise<{
         accessToken: string;
         refreshToken: string;
         user: {
