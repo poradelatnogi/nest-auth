@@ -242,7 +242,7 @@ import { ConfigModule } from '@nestjs/config';
             '"' + process.env.APP_NAME + '" <' + process.env.MAIL_FROM + '>',
         },
         template: {
-          dir: join(__dirname, 'templates'),
+          dir: join(__dirname, '../', '../', 'views'),
           adapter: new HandlebarsAdapter(),
           options: {
             strict: true,
@@ -277,18 +277,18 @@ export class AuthModule {}
 ```
 
 You also need to create template file for reset password feature.
-Create email templates folder. In my case, I created it inside ```src/auth``` folder. According to my configuration above.
+Create email templates folder. In my case, I created it inside ```root``` folder. According to my configuration above.
 
 ```bash
-mkdir -p ./src/auth/templates/emails
+mkdir -p ./views/emails
 # go to folder
-cd ./src/auth/templates/emails
+cd ./views/emails
 # create template file
 touch reset-password.hbs
 # touch reset-password.ejs
 # touch reset-password.pug
 # Back to the root folder
-cd ../../../../
+cd ../../
 ```
 Inside the template, ```user``` variable is available for you.
 
